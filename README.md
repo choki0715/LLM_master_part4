@@ -58,6 +58,36 @@ RAG 파이프라인의 기본(임베딩·시맨틱 서치·ChromaDB)에서 출�
 
 ## 실습 환경 설정
 
+### VSCode 원격 접속 (Remote SSH)
+
+실습은 AWS 서버에 접속해 진행합니다. 로컬 PC의 VSCode에서 **Remote - SSH** 확장으로 서버에 붙는 방식입니다.
+
+1. **Remote - SSH 확장 설치** — VSCode Extensions(`Ctrl+Shift+X`)에서 `Remote - SSH` 를 검색해 설치합니다.
+
+2. **SSH config 등록** — `~/.ssh/config`(Windows: `C:\Users\<사용자>\.ssh\config`) 파일에 접속 정보를 추가합니다.
+
+    ```ssh-config
+    Host llm_part4_aws
+        HostName 3.35.71.158
+        User ubuntu
+        IdentityFile C:\Users\HPE\Downloads\llm_master_part4.pem
+    ```
+
+    > `HostName`(서버 IP)과 `IdentityFile`(pem 키 경로)은 발급받은 값으로 바꿔주세요.
+
+3. **접속** — VSCode 좌측 하단 `><` 아이콘 → **Connect to Host…** → `llm_part4_aws` 선택 → 새 창에서 서버에 연결됩니다.
+
+#### ⚠️ pem 키 권한 거부 시 (Windows PowerShell)
+
+`Permissions for '...pem' are too open` 오류가 나면, 키 파일 권한을 본인만 읽을 수 있도록 제한합니다.
+
+```powershell
+icacls C:\경로\llm_master_part4.pem /inheritance:r
+icacls C:\경로\llm_master_part4.pem /grant:r "$($env:USERNAME):(R)"
+```
+
+### 저장소 복제 및 환경 구성
+
 먼저 저장소를 복제합니다.
 
 ```bash
