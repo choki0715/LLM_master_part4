@@ -1,0 +1,100 @@
+@prefix med: <http://example.org/med#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+<http://example.org/med#%EA%B9%80%EB%82%B4%EB%B6%84> a med:Endocrinologist ;
+    rdfs:label "김내분" ;
+    med:specializesIn <http://example.org/med#%EA%B3%A0%ED%98%88%EC%95%95>,
+        <http://example.org/med#%EC%A0%9C2%ED%98%95%EB%8B%B9%EB%87%A8%EB%B3%91> .
+
+<http://example.org/med#%EC%9D%B4%EC%8B%AC%EC%9E%A5> a med:Cardiologist ;
+    rdfs:label "이심장" ;
+    med:specializesIn <http://example.org/med#%ED%98%91%EC%8B%AC%EC%A6%9D> .
+
+<http://example.org/med#%EC%9E%84%EC%8B%A0%EC%84%B1%EB%8B%B9%EB%87%A8%EB%B3%91> a med:Diabetes ;
+    rdfs:label "임신성당뇨병" .
+
+med:hasSymptom owl:inverseOf med:symptomOf .
+
+med:interactsWith a owl:SymmetricProperty .
+
+med:treatedBy owl:inverseOf med:treats .
+
+<http://example.org/med#%EA%B0%88%EC%A6%9D> a med:Symptom ;
+    rdfs:label "갈증" .
+
+<http://example.org/med#%EA%B3%A0%ED%98%88%EC%95%95> a med:ChronicDisease ;
+    rdfs:label "고혈압" ;
+    med:hasSymptom <http://example.org/med#%EB%91%90%ED%86%B5> ;
+    med:treatedBy <http://example.org/med#%EC%95%94%EB%A1%9C%EB%94%94%ED%95%80> .
+
+<http://example.org/med#%EB%8B%88%ED%8A%B8%EB%A1%9C%EA%B8%80%EB%A6%AC%EC%84%B8%EB%A6%B0> a med:Vasodilator ;
+    rdfs:label "니트로글리세린" .
+
+<http://example.org/med#%EB%8B%A4%EB%87%A8> a med:Symptom ;
+    rdfs:label "다뇨" .
+
+<http://example.org/med#%EB%91%90%ED%86%B5> a med:Symptom ;
+    rdfs:label "두통" .
+
+<http://example.org/med#%EB%A9%94%ED%8A%B8%ED%8F%AC%EB%A5%B4%EB%AF%BC> a med:DiabetesDrug ;
+    rdfs:label "메트포르민" .
+
+<http://example.org/med#%EC%95%94%EB%A1%9C%EB%94%94%ED%95%80> a med:BPDrug ;
+    rdfs:label "암로디핀" .
+
+<http://example.org/med#%EC%99%80%ED%8C%8C%EB%A6%B0> a med:Anticoagulant ;
+    rdfs:label "와파린" ;
+    med:interactsWith <http://example.org/med#%EC%95%84%EC%8A%A4%ED%94%BC%EB%A6%B0> .
+
+<http://example.org/med#%EC%9D%B8%EC%8A%90%EB%A6%B0> a med:DiabetesDrug ;
+    rdfs:label "인슐린" .
+
+<http://example.org/med#%EC%A0%9C2%ED%98%95%EB%8B%B9%EB%87%A8%EB%B3%91> a med:Diabetes ;
+    rdfs:label "제2형당뇨병" ;
+    med:hasSymptom <http://example.org/med#%EA%B0%88%EC%A6%9D>,
+        <http://example.org/med#%EB%8B%A4%EB%87%A8> ;
+    med:treatedBy <http://example.org/med#%EB%A9%94%ED%8A%B8%ED%8F%AC%EB%A5%B4%EB%AF%BC>,
+        <http://example.org/med#%EC%9D%B8%EC%8A%90%EB%A6%B0> .
+
+<http://example.org/med#%ED%98%91%EC%8B%AC%EC%A6%9D> a med:HeartDisease ;
+    rdfs:label "협심증" ;
+    med:hasSymptom <http://example.org/med#%ED%9D%89%ED%86%B5> ;
+    med:treatedBy <http://example.org/med#%EB%8B%88%ED%8A%B8%EB%A1%9C%EA%B8%80%EB%A6%AC%EC%84%B8%EB%A6%B0>,
+        <http://example.org/med#%EC%95%84%EC%8A%A4%ED%94%BC%EB%A6%B0> .
+
+<http://example.org/med#%ED%9D%89%ED%86%B5> a med:Symptom ;
+    rdfs:label "흉통" .
+
+med:Anticoagulant rdfs:subClassOf med:Drug .
+
+med:Antiplatelet rdfs:subClassOf med:Drug .
+
+med:BPDrug rdfs:subClassOf med:Drug .
+
+med:Cardiologist rdfs:subClassOf med:Doctor .
+
+med:Endocrinologist rdfs:subClassOf med:Doctor .
+
+med:HeartDisease rdfs:subClassOf med:Disease .
+
+med:Vasodilator rdfs:subClassOf med:Drug .
+
+<http://example.org/med#%EC%95%84%EC%8A%A4%ED%94%BC%EB%A6%B0> a med:Antiplatelet ;
+    rdfs:label "아스피린" ;
+    med:interactsWith <http://example.org/med#%EC%99%80%ED%8C%8C%EB%A6%B0> .
+
+med:ChronicDisease rdfs:subClassOf med:Disease .
+
+med:Diabetes rdfs:subClassOf med:ChronicDisease .
+
+med:DiabetesDrug rdfs:subClassOf med:Drug .
+
+med:Disease a owl:Class .
+
+med:Doctor a owl:Class .
+
+med:Symptom a owl:Class .
+
+med:Drug a owl:Class .
+
