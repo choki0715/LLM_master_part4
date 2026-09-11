@@ -24,7 +24,7 @@ BLUE='\033[1;34m'
 CYAN='\033[1;36m'
 NC='\033[0m'
 
-TOTAL_STEPS=13
+TOTAL_STEPS=12
 CURRENT_STEP=0
 
 print_step() {
@@ -251,22 +251,7 @@ for p in ['torch','transformers','auto_gptq','awq']:
 fi
 print_ok "패키지 확인 완료"
 
-# ----- 12. VS Code 설치 -----
-# 데스크톱 VS Code(apt 패키지 'code')만 검사한다. `command -v code` 는 VS Code Remote 접속 시
-# ~/.vscode-server 의 서버 CLI 까지 잡아 "이미 설치됨"으로 오판 → 데스크톱 설치를 건너뛰는 버그.
-print_step "VS Code 설치"
-if dpkg -s code &> /dev/null; then
-    print_ok "VS Code(데스크톱)가 이미 설치되어 있습니다."
-else
-    print_ok "VS Code 설치 중..."
-    wget -qO /tmp/vscode.deb "https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64"
-    sudo apt-get install -y -qq /tmp/vscode.deb > /dev/null 2>&1 \
-        || { sudo dpkg -i /tmp/vscode.deb; sudo apt-get install -f -y -qq > /dev/null 2>&1; }
-    rm -f /tmp/vscode.deb
-    if dpkg -s code &> /dev/null; then print_ok "VS Code 설치 완료"; else print_warn "VS Code 설치 실패 — 수동: https://code.visualstudio.com/download"; fi
-fi
-
-# ----- 13. 완료 안내 -----
+# ----- 12. 완료 안내 -----
 print_step "설정 완료"
 echo ""
 echo -e "${GREEN}==========================================${NC}"
