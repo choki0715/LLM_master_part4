@@ -109,8 +109,11 @@ mpip() { "$UV" pip install --python "$MAIN" "$@"; }
 # ----- 5. 메인 스택 설치 (PyTorch + ML + RAG + 서빙) -----
 print_step "메인 스택 설치 - 시간이 걸립니다 (torch/vllm 등 대용량)"
 # torch 는 vllm 이 2.11 을 요구하므로 처음부터 2.11 로 맞춤 (이후 vllm 이 덮어쓰지 않게)
+# torchaudio 는 설치하지 않는다 — 본 과정에서 쓰지 않는데다, 버전이 torch 와 어긋나면
+# transformers 의 audio_utils 가 torchaudio 를 import 하다 죽어서 BertModel 등
+# 모든 모델 로딩이 "Could not import module 'BertModel'" 로 실패한다.
 mpip pip setuptools wheel -q
-mpip torch==2.11.0 torchvision==0.26.0 torchaudio --index-url https://download.pytorch.org/whl/cu128 -q
+mpip torch==2.11.0 torchvision==0.26.0 --index-url https://download.pytorch.org/whl/cu128 -q
 
 # 핵심 ML
 mpip "transformers==4.57.2" "accelerate==1.13.0" "datasets==4.8.4" \
